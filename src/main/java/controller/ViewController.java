@@ -14,22 +14,19 @@ import javax.validation.Valid;
 @RequestMapping(value = "/")
 public class ViewController {
 
-
-
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showForm() {
         return new ModelAndView("index");
     }
 
-    @RequestMapping( method = RequestMethod.POST)
-    public  ModelAndView submit(@Valid @ModelAttribute("student")Student student,
-                               BindingResult result,
-                               ModelAndView model) {
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView submitStudent(@Valid @ModelAttribute Student student,
+                               BindingResult result) {
         if (result.hasErrors()) {
-            return new ModelAndView("student");
+            return new ModelAndView("index");
         }
-
-        model.addObject("result",student);
+        ModelAndView model = new ModelAndView("displayStudent");
+        model.addObject("result", student);
 
         return model;
     }
